@@ -1,6 +1,5 @@
 #!/bin/bash
 
 file="${1:-crypt.enc}"
-read -rsp "enter secret:" secret
-echo ""
+[ -z "$2" ] && read -rsp "Enter secret: " secret && echo "" || secret=$(cat "$2")
 echo -n "$secret" | openssl enc -aes-256-cbc -salt -pbkdf2 -iter 100000 -e -out "$file"
